@@ -2,9 +2,15 @@
   "name": "GBH",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+    "start:prod": "node server.js",
+    "start:dev": "concurrently \"nodemon --ignore 'app/client/*'\" \"npm run client\"",
+    "client": "cd app/client && npm run start",
+    "install": "cd app/client && npm install",
+    "build": "cd app/client && npm run build",
+    "heroku-postbuild": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -16,5 +22,16 @@
   "bugs": {
     "url": "https://github.com/TheTrepanier/GBH/issues"
   },
-  "homepage": "https://github.com/TheTrepanier/GBH#readme"
+  "homepage": "https://github.com/TheTrepanier/GBH#readme",
+  "devDependencies": {
+    "concurrently": "^4.1.0",
+    "nodemon": "^1.18.7"
+  },
+  "dependencies": {
+    "dotenv": "^8.1.0",
+    "express": "^4.17.1",
+    "if-env": "^1.0.4",
+    "mysql2": "^1.7.0",
+    "sequelize": "^5.19.0"
+  }
 }
